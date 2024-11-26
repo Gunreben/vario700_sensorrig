@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="vario700_sensorrig">
+  <joint name="back_left_joint" type="continuous">
+    <origin xyz="-9.29712 -10.5215 7.9196 " rpy="0. 0. 3.1415927"/>
+    <parent link="base_link"/>
+    <child link="back_left_wheel"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="back_right_joint" type="continuous">
+    <origin xyz="9.29712 -10.5215 7.9196 " rpy="0. 0. 3.1415927"/>
+    <parent link="base_link"/>
+    <child link="back_right_wheel"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="front_left_joint" type="continuous">
+    <origin xyz="-9.34094 17.2967 5.81455" rpy="0. 0. 3.1415927"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="front_right_joint" type="continuous">
+    <origin xyz="9.34094 17.2967 5.81455" rpy="0. 0. 3.1415927"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_BL" type="fixed">
+    <origin xyz="186.38379 740.865 0. " rpy="1.5707964 0. 0.6981317"/>
+    <parent link="sensorrig"/>
+    <child link="Camera_BL"/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_BR" type="fixed">
+    <origin xyz="186.38379 -740.865 0. " rpy="1.5707964 0. 2.443461 "/>
+    <parent link="sensorrig"/>
+    <child link="Camera_BR"/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_FL" type="fixed">
+    <origin xyz="1394.0425 792.4227 0. " rpy="1.5707964 0. -0.6981317"/>
+    <parent link="sensorrig"/>
+    <child link="Camera_FL"/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_FR" type="fixed">
+    <origin xyz="1394.0425 -792.4227 0. " rpy="1.5707964 0. -2.443461 "/>
+    <parent link="sensorrig"/>
+    <child link="Camera_FR"/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_ML" type="fixed">
+    <origin xyz="785.1372 841.4958 0. " rpy="1.5707964 0. 0. "/>
+    <parent link="sensorrig"/>
+    <child link="Camera_ML"/>
+  </joint>
+  <joint name="joint_sensorrig-Camera_MR" type="fixed">
+    <origin xyz="785.1372 -841.4958 0. " rpy="1.5707964 0. -3.1415927"/>
+    <parent link="sensorrig"/>
+    <child link="Camera_MR"/>
+  </joint>
+  <joint name="joint_sensorrig-OS0_REV6_128_20hz___1024_resolution" type="fixed">
+    <origin xyz="1610.7047 -0.0002168 30.456617 " rpy="0.0698132 0.7853982 0. "/>
+    <parent link="sensorrig"/>
+    <child link="OS0_REV6_128_20hz___1024_resolution"/>
+  </joint>
+  <joint name="joint_sensorrig-OS0_REV7_128_10hz___512_resolution" type="fixed">
+    <origin xyz="1610.7047 -0.0002168 30.456617 " rpy="0.0698132 0.7853982 0. "/>
+    <parent link="sensorrig"/>
+    <child link="OS0_REV7_128_10hz___512_resolution"/>
+  </joint>
+  <joint name="root_joint" type="fixed">
+    <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+    <parent link="Root"/>
+    <child link="base_link"/>
+  </joint>
+  <joint name="sensorrig_joint" type="fixed">
+    <origin xyz="0. -13.5969 28.9559" rpy="0. 0. 1.5707964"/>
+    <parent link="base_link"/>
+    <child link="sensorrig"/>
+  </joint>
+  <link name="Camera_BL"/>
+  <link name="Camera_BR"/>
+  <link name="Camera_FL"/>
+  <link name="Camera_FR"/>
+  <link name="Camera_ML"/>
+  <link name="Camera_MR"/>
+  <link name="OS0_REV6_128_20hz___1024_resolution"/>
+  <link name="OS0_REV7_128_10hz___512_resolution"/>
+  <link name="Root"/>
+  <link name="back_left_wheel">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_left_wheel_visuals.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_left_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_left_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="back_right_wheel">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_right_wheel_visuals.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_right_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/back_right_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="base_link">
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/base_link_visuals.stl" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/base_link_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/base_link_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="front_left_wheel">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_left_wheel_visuals.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_left_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_left_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="front_right_wheel">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_right_wheel_visuals.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_right_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/front_right_wheel_collisions.obj" scale=".1 .1 .1"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="sensorrig">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/sensorrig_visuals.obj" scale=".001 .001 .001"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/sensorrig_collisions.obj" scale=".001 .001 .001"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="1583.7626 2.6641316 3.514463 " rpy="2.357414 -0.0493453 1.5213908"/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/os0_128_10hz_512_rev7_os0_mesh_os0_mesh.obj" scale="100. 100. 100."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="package://vario700_sensorrig/meshes/sensorrig_collisions.obj" scale=".001 .001 .001"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
