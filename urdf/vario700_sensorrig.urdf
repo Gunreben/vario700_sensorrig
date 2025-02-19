@@ -23,16 +23,23 @@
   </joint>
 
   <!-- Camera joints -->
-  <joint name="joint_sensorrig-Camera_BL" type="fixed">
-    <origin xyz="18.638379 74.0865 .0 " rpy="1.5707964 0. 0.6981317"/>
+  <joint name="joint_sensorrig-camera/rear_left" type="fixed">
+    <origin xyz=".18638379 .740865 .0 " rpy="1.5707964 0. 0.6981317"/>
     <parent link="sensorrig"/>
-    <child link="Camera_BL"/>
+    <child link="camera/rear_left"/>
   </joint>
-  <joint name="joint_sensorrig-Camera_BR" type="fixed">
-    <origin xyz="18.638379 -74.0865 .0 " rpy="1.5707964 0. 2.443461 "/>
+  <joint name="joint_sensorrig-camera/rear_right" type="fixed">
+    <origin xyz=".18638379 -.740865 .0 " rpy="1.5707964 0. 2.443461 "/>
     <parent link="sensorrig"/>
-    <child link="Camera_BR"/>
+    <child link="camera/rear_right"/>
   </joint>
+  <joint name="joint_sensorrig-camera/rear_mid" type="fixed">
+    <origin xyz=".18638379 .0 .0 " rpy="1.5707964 0. 2.443461 "/>
+    <parent link="sensorrig"/>
+    <child link="camera/rear_mid"/>
+  </joint>
+
+  <!-- Unused 
   <joint name="joint_sensorrig-Camera_FL" type="fixed">
     <origin xyz="139.40425 79.24227 .0 " rpy="1.5707964 0. -0.6981317"/>
     <parent link="sensorrig"/>
@@ -43,15 +50,17 @@
     <parent link="sensorrig"/>
     <child link="Camera_FR"/>
   </joint>
-  <joint name="joint_sensorrig-Camera_ML" type="fixed">
-    <origin xyz="78.51372 84.14958 .0 " rpy="1.5707964 0. 0. "/>
+  -->
+
+  <joint name="joint_sensorrig-camera/side_left" type="fixed">
+    <origin xyz=".7851372 .8414958 .0 " rpy="1.5707964 0. 0. "/>
     <parent link="sensorrig"/>
-    <child link="Camera_ML"/>
+    <child link="camera/side_left"/>
   </joint>
-  <joint name="joint_sensorrig-Camera_MR" type="fixed">
-    <origin xyz="78.51372 -84.14958 .0 " rpy="1.5707964 0. -3.1415927"/>
+  <joint name="joint_sensorrig-camera/side_right" type="fixed">
+    <origin xyz=".7851372 -.8414958 .0 " rpy="1.5707964 0. -3.1415927"/>
     <parent link="sensorrig"/>
-    <child link="Camera_MR"/>
+    <child link="camera/side_right"/>
   </joint>
 
   <!-- Lidar joints 
@@ -67,7 +76,7 @@
   </joint>
   -->
   <joint name="joint_sensorrig-os_sensor" type="fixed">
-    <origin xyz="16.107047 -.000002168 .30456617 " rpy="0.0698132 0.7853982 0. "/>
+    <origin xyz="1.6107047 -.000002168 .30456617 " rpy="0.0698132 0.7853982 0. "/>
     <parent link="sensorrig"/>
     <child link="os_sensor"/>
   </joint>
@@ -85,7 +94,7 @@
   </joint>
 
   <!-- Camera links -->
-  <link name="Camera_BL">
+  <link name="camera/rear_left">
     <visual>
       <geometry>
         <box size="0.05 0.05 0.05"/>
@@ -95,7 +104,7 @@
       </material>
     </visual>
   </link>
-  <link name="Camera_BR">
+  <link name="camera/rear_right">
     <visual>
       <geometry>
         <box size="0.05 0.05 0.05"/>
@@ -103,6 +112,15 @@
       <material name="camera_material"/>
     </visual>
   </link>
+  <link name="camera/rear_mid">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="camera_material"/>
+    </visual>
+  </link>
+  <!-- Unused
   <link name="Camera_FL">
     <visual>
       <geometry>
@@ -119,7 +137,8 @@
       <material name="camera_material"/>
     </visual>
   </link>
-  <link name="Camera_ML">
+  -->
+  <link name="camera/side_left">
     <visual>
       <geometry>
         <box size="0.05 0.05 0.05"/>
@@ -127,7 +146,7 @@
       <material name="camera_material"/>
     </visual>
   </link>
-  <link name="Camera_MR">
+  <link name="camera/side_right">
     <visual>
       <geometry>
         <box size="0.05 0.05 0.05"/>
