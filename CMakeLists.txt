@@ -30,6 +30,11 @@ install(
   DESTINATION share/${PROJECT_NAME}/rviz
 )
 
+# Install launch files
+install(
+  DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
 
 install(DIRECTORY urdf meshes
   DESTINATION share/${PROJECT_NAME}
