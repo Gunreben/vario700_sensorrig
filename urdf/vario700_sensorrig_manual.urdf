@@ -34,6 +34,12 @@
     <child link="camera_rear_left"/>
   </joint>
 
+  <joint name="joint_os_sensor-blickfeld" type="fixed">
+    <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
+    <parent link="os_sensor"/>
+    <child link="Root"/>
+  </joint>
+
   <joint name="joint_os_sensor-camera_rear_mid" type="fixed">
     <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
     <parent link="os_sensor"/>
@@ -118,6 +124,8 @@
   <link name="camera_rear_mid"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_left"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_right"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
+
+  <link name="Root"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
 
   <link name="zed_camera_link"><visual><geometry><box size="0.08 0.12 0.04"/></geometry></visual></link>
   <link name="zed_left_camera_frame"><visual><geometry><box size="0.04 0.04 0.02"/></geometry></visual></link>
