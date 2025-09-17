@@ -6,6 +6,8 @@
     <child link="sensorrig"/>
   </joint>
 
+  <!-- OS-Sensor Links and Joints -->
+  <!-- Currently just manually measured by aligning OS-Sensor Pointcloud with Fendt 724 model -->
   <joint name="joint_base_link-os_sensor" type="fixed">
     <origin xyz="0.0 0.26 2.98" rpy="0.0 -0.802851 -1.570796"/>
     <parent link="base_link"/>
@@ -18,6 +20,14 @@
     <child link="os_lidar"/>
   </joint>
 
+  <!-- Derived from MSA-Calibration -->
+  <joint name="os_sensor_imu_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0.031763 -0.00150674 3.10715"/>
+    <parent link="os_sensor"/>
+    <child link="os_sensor_imu"/>
+  </joint>
+
+  <!-- Camera Links and Joints: Derived from MSA-Calibration -->
   <joint name="joint_os_sensor-camera/rear_left" type="fixed">
     <origin xyz="0.987213 -0.716739 -1.10573" rpy="0.338194 -2.49739 0.754168"/>
     <parent link="os_sensor"/>
@@ -48,36 +58,16 @@
     <child link="camera/side_right"/>
   </joint>
 
-  <!-- ZED Camera Links and Joints -->
-  <joint name="zed_camera_link_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="os_sensor"/>
-    <child link="zed_camera_link"/>
-  </joint>
 
-  <joint name="zed_left_camera_frame_joint" type="fixed">
-    <origin xyz="-0.0340776 -0.061614 0.132995" rpy="-1.20172 -0.0212631 1.58427"/>
-    <parent link="zed_camera_link"/>
+  <!-- ZED Camera Links and Joints -->
+  <!-- Currently just manually measured by aligning ZED-Pointcloud with Fendt 724 model -->
+  <!-- Needs further refinement, especially in the distance-->
+  <joint name="zed_camera_link_joint" type="fixed">
+    <origin xyz="0.08 0.26  3.05" rpy="0.0 0.427851 1.570796"/>
+    <parent link="base_link"/>
     <child link="zed_left_camera_frame"/>
   </joint>
 
-  <joint name="zed_right_camera_frame_joint" type="fixed">
-    <origin xyz="-0.0379495 0.0590217 0.136208" rpy="-1.20242 -0.0210382 1.58383"/>
-    <parent link="zed_camera_link"/>
-    <child link="zed_right_camera_frame"/>
-  </joint>
-
-  <joint name="zed_imu_link_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="zed_left_camera_frame"/>
-    <child link="zed_imu_link"/>
-  </joint>
-
-  <joint name="os_sensor_imu_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0.031763 -0.00150674 3.10715"/>
-    <parent link="os_sensor"/>
-    <child link="os_sensor_imu"/>
-  </joint>
 
   <joint name="back_left_joint" type="fixed">
     <origin xyz="-0.929712 -1.05215 0.79196" rpy="0 0 3.1415927"/>
@@ -103,6 +93,8 @@
     <child link="front_right_wheel"/>
   </joint>
 
+  <!-- Visual and Collision Links -->
+  <!-- Added geometry to make it easier to visualize in Rviz -->
   <link name="camera/rear_left"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera/rear_right"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera/rear_mid"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
@@ -118,6 +110,10 @@
   <link name="os_lidar"/>
   <link name="os_sensor_imu"/>
 
+
+  <!-- Wheel Links and Joints -->
+  <!-- Geometry is from Fendt 724 model Farming Simulator 22 -->
+  <!-- Needs further refinement, especially in the mass and inertia -->
   <link name="back_left_wheel">
     <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="1"/><inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/></inertial>
     <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://vario700_sensorrig/meshes/back_left_wheel_visuals.obj" scale="0.1 0.1 0.1"/></geometry></visual>
@@ -148,6 +144,8 @@
     <collision><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://vario700_sensorrig/meshes/front_right_wheel_collisions.obj" scale="0.1 0.1 0.1"/></geometry></collision>
   </link>
 
+  <!-- Sensorrig Links and Joints -->
+  <!-- Handmade CAD Model -->
   <link name="sensorrig">
     <inertial><origin xyz="0 0 0" rpy="0 0 0"/><mass value="2"/><inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/></inertial>
     <visual><origin xyz="0 0 0" rpy="0 0 0"/><geometry><mesh filename="package://vario700_sensorrig/meshes/sensorrig_visuals.obj" scale="0.001 0.001 0.001"/></geometry></visual>
