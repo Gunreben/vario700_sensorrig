@@ -68,11 +68,25 @@
   <!-- ZED Camera Links and Joints -->
   <!-- Currently just manually measured by aligning ZED-Pointcloud with Fendt 724 model -->
   <!-- Needs further refinement, especially in the distance-->
+  <!-- 
   <joint name="zed_camera_link_joint" type="fixed">
     <origin xyz="0.08 0.26  3.05" rpy="0.0 0.427851 1.570796"/>
     <parent link="base_link"/>
     <child link="zed_camera_link"/>
   </joint>
+
+  <joint name="zed_camera_link_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="zed_camera_link" />
+    <origin xyz="-0.331240 -0.015833 0.154115" rpy="-1.210257 -0.007345 1.595239" />
+  </joint>
+  -->
+  <joint name="zed_camera_link_joint" type="fixed">
+    <origin xyz="0.08 0.26  3.05" rpy="0.0 0.427851 1.570796"/>
+    <parent link="base_link"/>
+    <child link="zed_camera_link"/>
+  </joint>
+
 
   <joint name="zed_left_camera_joint" type="fixed">
     <origin xyz="0 0.06 0" rpy="0 0 0"/>
@@ -84,6 +98,13 @@
     <origin xyz="0 -0.06 0" rpy="0 0 0"/>
     <parent link="zed_camera_link"/>
     <child link="zed_right_camera_frame"/>
+  </joint>
+
+    
+  <joint name="zed_left_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="zed_left_camera_frame"/>
+    <child link="zed_left_camera_optical_frame"/>
   </joint>
 
   <joint name="zed_imu_joint" type="fixed">
@@ -131,6 +152,7 @@
   <link name="zed_left_camera_frame"><visual><geometry><box size="0.04 0.04 0.02"/></geometry></visual></link>
   <link name="zed_right_camera_frame"><visual><geometry><box size="0.04 0.04 0.02"/></geometry></visual></link>
   <link name="zed_imu_link"><visual><geometry><box size="0.02 0.02 0.01"/></geometry></visual></link>
+  <link name="zed_left_camera_optical_frame"></link>
 
   <link name="os_sensor"><visual><geometry><cylinder radius="0.05" length="0.1"/></geometry></visual></link>
   <link name="os_lidar"/>
