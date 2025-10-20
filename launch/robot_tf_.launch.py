@@ -19,7 +19,8 @@ def generate_launch_description():
         description='Use simulation (Gazebo) clock if true'
     )
     
-    # Robot state publisher
+    # Robot state publisher: 
+    # Currently opens urdf with pointclouds manually registered to tractor hood.
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -32,7 +33,7 @@ def generate_launch_description():
     )
     
     # TF2 static transform publisher for map to odom
-    # Note: This should be replaced by your actual localization system
+    # To-Do:  should be replaced by actual localization system
     map_to_odom = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -42,7 +43,7 @@ def generate_launch_description():
     )
     
     # TF2 static transform publisher for odom to base_link
-    # Note: This should be replaced by your actual odometry system
+    # To-Do:  should be replaced by actual odometry system
     odom_to_base_link = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
