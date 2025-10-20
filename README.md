@@ -31,5 +31,5 @@ sudo apt install ros-<your-ros2-distro>-xacro
 
 Run the robot state publisher:
 ```bash
-ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(< $(ros2 pkg prefix vario700_sensorrig)/share/vario700_sensorrig/urdf/vario700_sensorrig.urdf)"
+ros2 launch vario700_sensorrig robot_tf.launch.py
 ```
