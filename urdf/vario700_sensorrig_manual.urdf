@@ -66,8 +66,9 @@
 
 
   <!-- ZED Camera Links and Joints -->
-  <!-- Currently just manually measured by aligning ZED-Pointcloud with Fendt 724 model -->
-  <!-- Needs further refinement, especially in the distance-->
+  
+  <!-- DEPRECATED -->
+  <!-- Manually alligned ZED-Pointcloud with Fendt 724 model / Ouster-Pointcloud -->
   <!-- 
   <joint name="zed_camera_link_joint" type="fixed">
     <origin xyz="0.08 0.26  3.05" rpy="0.0 0.427851 1.570796"/>
@@ -75,31 +76,27 @@
     <child link="zed_camera_link"/>
   </joint>
 
-  <joint name="zed_camera_link_joint" type="fixed">
-    <parent link="base_link" />
-    <child link="zed_camera_link" />
-    <origin xyz="-0.331240 -0.015833 0.154115" rpy="-1.210257 -0.007345 1.595239" />
-  </joint>
-  -->
-  <joint name="zed_camera_link_joint" type="fixed">
-    <origin xyz="0.08 0.26  3.05" rpy="0.0 0.427851 1.570796"/>
-    <parent link="base_link"/>
-    <child link="zed_camera_link"/>
-  </joint>
-
-
   <joint name="zed_left_camera_joint" type="fixed">
     <origin xyz="0 0.06 0" rpy="0 0 0"/>
     <parent link="zed_camera_link"/>
     <child link="zed_left_camera_frame"/>
   </joint>
-
+  
   <joint name="zed_right_camera_joint" type="fixed">
     <origin xyz="0 -0.06 0" rpy="0 0 0"/>
     <parent link="zed_camera_link"/>
     <child link="zed_right_camera_frame"/>
   </joint>
+  -->
 
+  <!-- NEW -->
+  <!-- ICP-Registration of ZED-Pointcloud with Ouster-Pointcloud -->
+  <!-- Right Camera Frames not included yet -->
+  <joint name="zed_left_camera_joint" type="fixed">
+    <parent link="os_sensor"/>
+    <child link="zed_left_camera_frame"/>
+    <origin xyz="-0.017881 -0.118638 0.062218" rpy="-0.015401 -0.354727 -3.119028"/>
+  </joint>
     
   <joint name="zed_left_camera_optical_frame_joint" type="fixed">
     <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
