@@ -15,16 +15,16 @@
   </joint>
 
   <joint name="os_sensor_to_os_lidar" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0.038195" rpy="0 0 0"/>
     <parent link="os_sensor"/>
     <child link="os_lidar"/>
   </joint>
 
-  <!-- Derived from MSA-Calibration -->
-  <joint name="os_sensor_imu_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0.031763 -0.00150674 3.10715"/>
+  <!-- From Ouster ROS Wrapper -->
+  <joint name="os_imu_joint" type="fixed">
+    <origin xyz="-0.002441 -0.009725 0.007533" rpy="0 0 0"/>
     <parent link="os_sensor"/>
-    <child link="os_sensor_imu"/>
+    <child link="os_imu"/>
   </joint>
 
   <!-- Camera Links and Joints: Derived from MSA-Calibration -->
@@ -66,7 +66,6 @@
 
 
   <!-- ZED Camera Links and Joints -->
-  
   <!-- DEPRECATED -->
   <!-- Manually alligned ZED-Pointcloud with Fendt 724 model / Ouster-Pointcloud -->
   <!-- 
@@ -75,25 +74,6 @@
     <parent link="base_link"/>
     <child link="zed_camera_link"/>
   </joint>
-
-  <joint name="zed_left_camera_joint" type="fixed">
-    <origin xyz="0 0.06 0" rpy="0 0 0"/>
-    <parent link="zed_camera_link"/>
-    <child link="zed_left_camera_frame"/>
-  </joint>
-  
-  <joint name="zed_right_camera_joint" type="fixed">
-    <origin xyz="0 -0.06 0" rpy="0 0 0"/>
-    <parent link="zed_camera_link"/>
-    <child link="zed_right_camera_frame"/>
-  </joint>
-
-  <joint name="zed_imu_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="zed_camera_link"/>
-    <child link="zed_imu_link"/>
-  </joint>
-
   -->
 
   <!-- NEW -->
@@ -102,14 +82,43 @@
   <joint name="zed_left_camera_joint" type="fixed">
     <parent link="os_sensor"/>
     <child link="zed_left_camera_frame"/>
-    <origin xyz="-0.017881 -0.118638 0.062218" rpy="-0.015401 -0.354727 -3.119028"/>
+    <!-- ICP from barn, seemed visually off -->
+    <!-- <origin xyz="-0.017881 -0.118638 0.062218" rpy="-0.015401 -0.354727 -3.119028"/>  -->
+    <!-- ICP Windrow 4 -->
+    <origin xyz="-0.026789 -0.098001 0.035757" rpy="-0.019154 -0.401029 -3.126174"/>
   </joint>
-    
+
+   <!-- From ZED ROS Wrapper -->
   <joint name="zed_left_camera_optical_frame_joint" type="fixed">
     <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
     <parent link="zed_left_camera_frame"/>
     <child link="zed_left_camera_optical_frame"/>
   </joint>
+
+  <joint name="zed_camera_center_joint" type="fixed">
+    <origin xyz="0.010 -0.060 0.000" rpy="0 0 0"/>
+    <parent link="zed_left_camera_frame"/>
+    <child link="zed_camera_center"/>
+  </joint>
+
+  <joint name="zed_right_camera_joint" type="fixed">
+    <origin xyz="-0.010 -0.060 0.000" rpy="0 0 0"/>
+    <parent link="zed_camera_center"/>
+    <child link="zed_right_camera_frame"/>
+  </joint>
+
+  <joint name="zed_camera_link_joint" type="fixed">
+    <origin xyz="0 0 -0.015" rpy="0 0 0"/>
+    <parent link="zed_camera_center"/>
+    <child link="zed_camera_link"/>
+  </joint>
+
+  <joint name="zed_right_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="zed_right_camera_frame"/>
+    <child link="zed_right_camera_optical_frame"/>
+  </joint>
+
 
 
 
@@ -147,15 +156,17 @@
 
   <link name="Root"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
 
-  <!-- <link name="zed_camera_link"><visual><geometry><box size="0.08 0.12 0.04"/></geometry></visual></link> -->
-  <link name="zed_left_camera_frame"><visual><geometry><box size="0.04 0.04 0.02"/></geometry></visual></link>
-  <!-- <link name="zed_right_camera_frame"><visual><geometry><box size="0.04 0.04 0.02"/></geometry></visual></link> -->
-  <!-- <link name="zed_imu_link"><visual><geometry><box size="0.02 0.02 0.01"/></geometry></visual></link> -->
+  <link name="zed_camera_link"></link>
+  <link name="zed_camera_center"></link>
+  <link name="zed_left_camera_frame"></link>
+  <link name="zed_right_camera_frame"></link>
+  <!-- <link name="zed_imu_link"></link> -->
   <link name="zed_left_camera_optical_frame"></link>
+  <link name="zed_right_camera_optical_frame"></link>
 
   <link name="os_sensor"><visual><geometry><cylinder radius="0.05" length="0.1"/></geometry></visual></link>
   <link name="os_lidar"/>
-  <link name="os_sensor_imu"/>
+  <link name="os_imu"/>
 
 
   <!-- Wheel Links and Joints -->
