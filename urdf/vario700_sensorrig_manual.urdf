@@ -9,7 +9,8 @@
   <!-- OS-Sensor Links and Joints -->
   <!-- Currently just manually measured by aligning OS-Sensor Pointcloud with Fendt 724 model -->
   <joint name="joint_base_link-os_sensor" type="fixed">
-    <origin xyz="0.0 0.26 2.98" rpy="0.0 -0.802851 -1.570796"/>
+    <!-- Last manual align on barn: <origin xyz="0.0 0.26 2.98" rpy="0 -0.802851 -1.570796"/> -->
+    <origin xyz="0.10 0.26 2.98" rpy="0 -0.812851 -1.570796"/>
     <parent link="base_link"/>
     <child link="os_sensor"/>
   </joint>
