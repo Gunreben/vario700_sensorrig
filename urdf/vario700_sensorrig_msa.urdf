@@ -29,6 +29,12 @@
   </joint>
 
   <!-- Camera Links and Joints: Derived from MSA-Calibration -->
+  <joint name="joint_os_sensor-camera_rear_left" type="fixed">
+    <origin xyz="0.987213 -0.716739 -1.10573" rpy="0.338194 -2.49739 0.754168"/>
+    <parent link="os_sensor"/>
+    <child link="camera_rear_left"/>
+  </joint>
+
   <joint name="joint_os_sensor-blickfeld" type="fixed">
     <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
     <parent link="os_sensor"/>
@@ -41,28 +47,21 @@
     <child link="camera_rear_mid"/>
   </joint>
 
-  <!-- Other cameras relative to camera_rear_mid -->
-  <joint name="joint_camera_rear_mid-camera_rear_left" type="fixed">
-    <origin xyz="-0.486526 0.345916 -0.431791" rpy="0.340515 -0.649637 -0.765170"/>
-    <parent link="camera_rear_mid"/>
-    <child link="camera_rear_left"/>
-  </joint>
-
-  <joint name="joint_camera_rear_mid-camera_rear_right" type="fixed">
-    <origin xyz="-0.421212 -0.541939 -0.303270" rpy="0.509554 0.193946 -0.723323"/>
-    <parent link="camera_rear_mid"/>
+  <joint name="joint_os_sensor-camera_rear_right" type="fixed">
+    <origin xyz="0.979937 0.739726 -1.09765" rpy="0.467141 2.53466 2.30594"/>
+    <parent link="os_sensor"/>
     <child link="camera_rear_right"/>
   </joint>
 
-  <joint name="joint_camera_rear_mid-camera_side_left" type="fixed">
-    <origin xyz="-0.806521 0.572777 -0.586037" rpy="0.870316 -0.725613 -1.445214"/>
-    <parent link="camera_rear_mid"/>
+  <joint name="joint_os_sensor-camera_side_left" type="fixed">
+    <origin xyz="0.536304 -0.868147 -0.633051" rpy="0.791996 -2.31362 0.0204264"/>
+    <parent link="os_sensor"/>
     <child link="camera_side_left"/>
   </joint>
 
-  <joint name="joint_camera_rear_mid-camera_side_right" type="fixed">
-    <origin xyz="-0.641456 -0.748160 -0.620127" rpy="0.950561 0.410323 -1.139748"/>
-    <parent link="camera_rear_mid"/>
+  <joint name="joint_os_sensor-camera_side_right" type="fixed">
+    <origin xyz="0.522142 0.877865 -0.631033" rpy="-2.27836 0.834522 0.0180667"/>
+    <parent link="os_sensor"/>
     <child link="camera_side_right"/>
   </joint>
 
