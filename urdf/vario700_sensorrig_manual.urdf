@@ -35,36 +35,41 @@
     <child link="Root"/>
   </joint>
 
-  <joint name="joint_os_sensor-camera_rear_mid" type="fixed">
-    <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
+  <joint name="joint_os_sensor-camera_rear_left" type="fixed">
+    <origin xyz="0.987213 -0.716739 -1.10573" rpy="0.338194 -2.49739 0.754168"/>
     <parent link="os_sensor"/>
-    <child link="camera_rear_mid"/>
-  </joint>
-
-  <!-- Other cameras relative to camera_rear_mid -->
-  <joint name="joint_camera_rear_mid-camera_rear_left" type="fixed">
-    <origin xyz="-0.486526 0.345916 -0.431791" rpy="0.340515 -0.649637 -0.765170"/>
-    <parent link="camera_rear_mid"/>
     <child link="camera_rear_left"/>
   </joint>
 
+  <!-- Other cameras relative to camera_rear_left -->
+  <joint name="joint_camera_rear_left-camera_side_left" type="fixed">
+    <parent link="camera_rear_left"/>
+    <child link="camera_side_left"/>
+    <origin xyz="-0.679383 0.060769 -0.066061" rpy="0.188762 -0.343638 -0.366012"/>
+  </joint>
+  <!-- Calibration info: RMS=1.0750, image_pairs=16 -->
+
+  <joint name="joint_camera_rear_left-camera_rear_mid" type="fixed">
+    <parent link="camera_rear_left"/>
+    <child link="camera_rear_mid"/>
+    <origin xyz="0.729568 0.078662 -0.036759" rpy="0.185558 0.701033 0.726936"/>
+  </joint>
+  <!-- Calibration info: RMS=0.8114, image_pairs=9 -->
+
+  <!-- Inverted from camera_rear_right->camera_rear_mid calibration -->
   <joint name="joint_camera_rear_mid-camera_rear_right" type="fixed">
-    <origin xyz="-0.421212 -0.541939 -0.303270" rpy="0.509554 0.193946 -0.723323"/>
     <parent link="camera_rear_mid"/>
     <child link="camera_rear_right"/>
+    <origin xyz="0.556353 0.283049 -0.436192" rpy="0.257379 0.699633 0.660680"/>
   </joint>
+  <!-- Calibration info: Inverted from rear_right->rear_mid, original RMS=0.6673, image_pairs=9 -->
 
-  <joint name="joint_camera_rear_mid-camera_side_left" type="fixed">
-    <origin xyz="-0.806521 0.572777 -0.586037" rpy="0.870316 -0.725613 -1.445214"/>
-    <parent link="camera_rear_mid"/>
-    <child link="camera_side_left"/>
-  </joint>
-
-  <joint name="joint_camera_rear_mid-camera_side_right" type="fixed">
-    <origin xyz="-0.641456 -0.748160 -0.620127" rpy="0.950561 0.410323 -1.139748"/>
-    <parent link="camera_rear_mid"/>
+  <joint name="joint_camera_rear_right-camera_side_right" type="fixed">
+    <parent link="camera_rear_right"/>
     <child link="camera_side_right"/>
+    <origin xyz="0.652059 0.085410 -0.138240" rpy="0.363952 0.463761 0.521473"/>
   </joint>
+
 
 
   <!-- ZED Camera Links and Joints -->
@@ -155,6 +160,44 @@
   <link name="camera_rear_mid"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_left"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_right"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
+
+  <!-- Optical frame links for cameras (ROS convention) -->
+  <!-- Transform from camera link frame (X-forward, Y-left, Z-up) to -->
+  <!-- optical frame (X-right, Y-down, Z-forward): rpy="-pi/2, 0, -pi/2" -->
+  <link name="camera_rear_left_optical_frame"/>
+  <joint name="camera_rear_left_optical_joint" type="fixed">
+    <parent link="camera_rear_left"/>
+    <child link="camera_rear_left_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+  </joint>
+
+  <link name="camera_rear_right_optical_frame"/>
+  <joint name="camera_rear_right_optical_joint" type="fixed">
+    <parent link="camera_rear_right"/>
+    <child link="camera_rear_right_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+  </joint>
+
+  <link name="camera_rear_mid_optical_frame"/>
+  <joint name="camera_rear_mid_optical_joint" type="fixed">
+    <parent link="camera_rear_mid"/>
+    <child link="camera_rear_mid_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+  </joint>
+
+  <link name="camera_side_left_optical_frame"/>
+  <joint name="camera_side_left_optical_joint" type="fixed">
+    <parent link="camera_side_left"/>
+    <child link="camera_side_left_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+  </joint>
+
+  <link name="camera_side_right_optical_frame"/>
+  <joint name="camera_side_right_optical_joint" type="fixed">
+    <parent link="camera_side_right"/>
+    <child link="camera_side_right_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5707963 0 -1.5707963"/>
+  </joint>
 
   <link name="Root"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
 
