@@ -28,7 +28,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'robot_description': open(os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig_manual.urdf'), 'r').read()
+            'robot_description': open(os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig_msa.urdf'), 'r').read()
         }]
     )
     
