@@ -28,41 +28,50 @@
     <child link="os_imu"/>
   </joint>
 
-  <!-- Camera Links and Joints: Derived from MSA-Calibration -->
-  <joint name="joint_os_sensor-camera_rear_left" type="fixed">
-    <origin xyz="0.987213 -0.716739 -1.10573" rpy="0.338194 -2.49739 0.754168"/>
-    <parent link="os_sensor"/>
-    <child link="camera_rear_left"/>
-  </joint>
+  <!-- Camera Links and Joints: Chain from Kalibr calibration -->
+  <!-- Chain: os_sensor -> side_right -> rear_right -> rear_mid -> rear_left -> side_left -->
+  <!-- rear_mid position preserved relative to os_sensor from previous calibration -->
 
-  <joint name="joint_camera_rear_mid-Root" type="fixed">
-    <origin xyz="-0.300000 0.000000 0.000000" rpy="1.232202 0.000000 0.000003"/>
-    <parent link="camera_rear_mid"/>
-    <child link="Root"/>
-  </joint>
-
-  <joint name="joint_os_sensor-camera_rear_mid" type="fixed">
-    <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
-    <parent link="os_sensor"/>
-    <child link="camera_rear_mid"/>
-  </joint>
-
-  <joint name="joint_os_sensor-camera_rear_right" type="fixed">
-    <origin xyz="0.979937 0.739726 -1.09765" rpy="0.467141 2.53466 2.30594"/>
-    <parent link="os_sensor"/>
-    <child link="camera_rear_right"/>
-  </joint>
-
-  <joint name="joint_os_sensor-camera_side_left" type="fixed">
-    <origin xyz="0.536304 -0.868147 -0.633051" rpy="0.791996 -2.31362 0.0204264"/>
-    <parent link="os_sensor"/>
-    <child link="camera_side_left"/>
-  </joint>
-
+  <!-- os_sensor -> side_right: Computed to maintain rear_mid's absolute position -->
   <joint name="joint_os_sensor-camera_side_right" type="fixed">
     <origin xyz="0.522142 0.877865 -0.631033" rpy="-2.27836 0.834522 0.0180667"/>
     <parent link="os_sensor"/>
     <child link="camera_side_right"/>
+  </joint>
+
+  <!-- side_right -> rear_right: From Kalibr cam1 T_cn_cnm1 (inverted) -->
+  <joint name="joint_camera_side_right-camera_rear_right" type="fixed">
+    <origin xyz="0.6585 0.0785 -0.1081" rpy="0.3517 0.4557 0.5183"/>
+    <parent link="camera_side_right"/>
+    <child link="camera_rear_right"/>
+  </joint>
+
+  <!-- rear_right -> rear_mid: From Kalibr cam2 T_cn_cnm1 (inverted) -->
+  <joint name="joint_camera_rear_right-camera_rear_mid" type="fixed">
+    <origin xyz="0.5371 0.2753 -0.4252" rpy="0.2365 0.7268 0.6693"/>
+    <parent link="camera_rear_right"/>
+    <child link="camera_rear_mid"/>
+  </joint>
+
+  <!-- rear_mid -> rear_left: From Kalibr cam3 T_cn_cnm1 (inverted) -->
+  <joint name="joint_camera_rear_mid-camera_rear_left" type="fixed">
+    <origin xyz="0.7371 0.0765 -0.0433" rpy="0.1261 0.7369 0.7252"/>
+    <parent link="camera_rear_mid"/>
+    <child link="camera_rear_left"/>
+  </joint>
+
+  <!-- rear_left -> side_left: From Kalibr cam4 T_cn_cnm1 (inverted) -->
+  <joint name="joint_camera_rear_left-camera_side_left" type="fixed">
+    <origin xyz="0.6224 0.1106 -0.2244" rpy="-0.2752 0.4740 0.2358"/>
+    <parent link="camera_rear_left"/>
+    <child link="camera_side_left"/>
+  </joint>
+
+  <!-- Blickfeld attached to rear_mid -->
+  <joint name="joint_camera_rear_mid-blickfeld" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 -1.5708"/>
+    <parent link="camera_rear_mid"/>
+    <child link="Root"/>
   </joint>
 
 

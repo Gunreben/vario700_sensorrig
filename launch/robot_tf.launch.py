@@ -12,6 +12,11 @@ def generate_launch_description():
     # Get the package directory
     pkg_dir = get_package_share_directory('vario700_sensorrig')
     
+    # Read URDF file properly with context manager to ensure clean resource handling
+    urdf_path = os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig_msa.urdf')
+    with open(urdf_path, 'r') as urdf_file:
+        robot_description_content = urdf_file.read()
+    
     # Declare launch arguments
     use_sim_time_arg = DeclareLaunchArgument(
         'use_sim_time',
@@ -28,7 +33,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'robot_description': open(os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig_msa.urdf'), 'r').read()
+            'robot_description': robot_description_content
         }]
     )
     
