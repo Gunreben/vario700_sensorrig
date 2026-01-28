@@ -35,6 +35,7 @@
     <child link="camera_rear_left"/>
   </joint>
 
+  <!-- Blickfeld attached to rear_mid; Blickfeld is unintuitively recorded in frame "Root" -->
   <joint name="joint_camera_rear_mid-Root" type="fixed">
     <origin xyz="-0.300000 0.000000 0.000000" rpy="1.232202 0.000000 0.000003"/>
     <parent link="camera_rear_mid"/>
