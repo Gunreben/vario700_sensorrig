@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Coordinate conventions (REP 103):
+  - base_link: X-forward, Y-left, Z-up
+  - camera optical frames: Z-forward, X-right, Y-down
+  - Ouster os_sensor: X-forward in its own frame
+  
+  Kalibr outputs transforms between optical frames, so chain optical frames directly.
+-->
+<robot name="vario700_sensorrig">
+
+  <!-- ==================== BASE LINK ==================== -->
+  <!-- Origin at rear axle center, ground level, X-forward, Y-left, Z-up -->
+  <link name="base_link"/>
+
+  <!-- ==================== OUSTER LIDAR ==================== -->
+  <!-- 
+    Position of os_sensor relative to base_link:
+    - X: ~0.26m forward of rear axle (towards front)
+    - Y: ~-0.10m to the right (negative = right in REP 103)
+    - Z: ~2.98m above ground
+    - Pitch: tilted down ~46.6° (-0.812851 rad)
+  -->
+  <joint name="base_link_to_os_sensor" type="fixed">
+    <origin xyz="0.26 -0.10 2.98" rpy="0 -0.812851 0"/>
+    <parent link="base_link"/>
+    <child link="os_sensor"/>
+  </joint>
+  <link name="os_sensor"/>
+
+  <!-- os_lidar is the actual measurement origin (36.18mm above os_sensor base) -->
+  <joint name="os_sensor_to_os_lidar" type="fixed">
+    <origin xyz="0 0 0.038195" rpy="0 0 0"/>
+    <parent link="os_sensor"/>
+    <child link="os_lidar"/>
+  </joint>
+  <link name="os_lidar"/>
+
+  <!-- Ouster IMU (from Ouster datasheet/ROS wrapper) -->
+  <joint name="os_sensor_to_os_imu" type="fixed">
+    <origin xyz="-0.002441 -0.009725 0.007533" rpy="0 -1.570796 0"/>
+    <parent link="os_sensor"/>
+    <child link="os_imu"/>
+  </joint>
+  <link name="os_imu"/>
+
+  <!-- ==================== MONO CAMERAS (Kalibr chain) ==================== -->
+  <!-- Using MSA-Calibration, since position was not moved since last calibration -->
+  <joint name="os_sensor_to_rear_mid" type="fixed">
+    <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
+    <parent link="os_sensor"/>
+    <child link="camera_rear_mid"/>
+  </joint>
+  <link name="camera_rear_mid"/>
+
+  <!-- rear_mid: optical_frame -> camera_frame (standard conversion, inverse of usual) -->
+  <joint name="rear_mid_optical_to_frame" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_rear_mid"/>
+    <child link="camera_rear_mid_optical_frame"/>
+  </joint>
+  <link name="camera_rear_mid_optical_frame"/>
+
+    <!-- Camera: rear_right (from Kalibr: T_rear_right_rear_mid) -->
+  <joint name="rear_mid_to_rear_right" type="fixed">
+    <origin xyz="-0.706334753202191 0.093880879447860 -0.097177067544477" rpy="0.289483560633349 -0.708003013226559 -0.687384588595347"/>
+    <parent link="camera_rear_mid"/>
+    <child link="camera_rear_right"/>
+  </joint>
+  <link name="camera_rear_right"/>
+
+  <!-- Derive camera_frame from optical_frame (inverse of standard optical transform) -->
+  <joint name="rear_right_to_rear_right_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="camera_rear_right"/>
+    <child link="camera_rear_right_optical_frame"/>
+  </joint>
+  <link name="camera_rear_right_optical_frame"/>
+
+
+  <joint name="rear_right_to_side_right" type="fixed">
+      <origin 
+        xyz="-0.580428993498309 0.178316121505517 -0.240298356120014"
+        rpy="-0.113989203132654 -0.562324884121995 -0.403106074270324"/>
+    <parent link="camera_rear_right"/>
+    <child link="camera_side_right"/>
+  </joint>
+  <link name="camera_side_right"/>
+
+  <joint name="side_right_to_side_right_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_side_right"/>
+    <child link="camera_side_right_optical_frame"/>
+  </joint>
+  <link name="camera_side_right_optical_frame"/>
+
+  <joint name="side_right_to_rear_left" type="fixed">
+    <origin xyz="0.623676392333982 1.145874985590507 -1.059447968566354" rpy="1.719921586961546 0.322879497918858 2.670361171256585"/>
+    <parent link="camera_side_right"/>
+    <child link="camera_rear_left"/>
+  </joint>
+  <link name="camera_rear_left"/>
+
+  <joint name="rear_left_to_rear_left_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_rear_left"/>
+    <child link="camera_rear_left_optical_frame"/>
+  </joint>
+  <link name="camera_rear_left_optical_frame"/>
+
+  <joint name="rear_left_to_side_left" type="fixed">
+    <origin xyz="0.603779435740509 0.107615370836158 -0.220133541697209" rpy="-0.274021914012596 0.476695080303784 0.235842064594591"/>
+    <parent link="camera_rear_left"/>
+    <child link="camera_side_left"/>
+  </joint>
+  <link name="camera_side_left"/>
+
+  <joint name="side_left_to_side_left_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_side_left"/>
+    <child link="camera_side_left_optical_frame"/>
+  </joint>
+  <link name="camera_side_left_optical_frame"/>
+
+
+
+  <!-- ==================== ZED STEREO CAMERA ==================== -->
+  <!-- Calibrated via ICP with Ouster pointcloud -->
+  <!-- TODO: Verify these values work with the new base_link convention -->
+  <joint name="os_sensor_to_zed_left_frame" type="fixed">
+    <origin xyz="0.166753 -0.157008 -0.192582" rpy="-0.007683 -0.361936 -3.122481"/>
+    <parent link="os_sensor"/>
+    <child link="zed_left_camera_frame"/>
+  </joint>
+  <link name="zed_left_camera_frame"/>
+
+  <joint name="zed_left_frame_to_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="zed_left_camera_frame"/>
+    <child link="zed_left_camera_optical_frame"/>
+  </joint>
+  <link name="zed_left_camera_optical_frame"/>
+
+  <!-- ZED camera center (60mm baseline, left camera is 10mm offset) -->
+  <joint name="zed_left_to_center" type="fixed">
+    <origin xyz="0 -0.060 0" rpy="0 0 0"/>
+    <parent link="zed_left_camera_frame"/>
+    <child link="zed_camera_center"/>
+  </joint>
+  <link name="zed_camera_center"/>
+
+  <joint name="zed_center_to_right_frame" type="fixed">
+    <origin xyz="0 -0.060 0" rpy="0 0 0"/>
+    <parent link="zed_camera_center"/>
+    <child link="zed_right_camera_frame"/>
+  </joint>
+  <link name="zed_right_camera_frame"/>
+
+  <joint name="zed_right_frame_to_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="zed_right_camera_frame"/>
+    <child link="zed_right_camera_optical_frame"/>
+  </joint>
+  <link name="zed_right_camera_optical_frame"/>
+
+</robot>
