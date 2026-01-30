@@ -28,11 +28,11 @@
     <child link="os_imu"/>
   </joint>
   <!-- Camera Links and Joints: Chain from Kalibr calibration -->
-  <!-- Chain: os_sensor -> rear_mid -> rear_left -> side_left; rear_mid -> rear_right -> side_right -->
-  <!-- rear_mid position preserved relative to os_sensor from previous calibration -->
-  <joint name="joint_os_sensor-camera_rear_mid" type="fixed">
-    <origin xyz="1.08013 0.0128897 -1.15956" rpy="0.188916 -3.11455 1.56053"/>
-    <parent link="os_sensor"/>
+  <!-- Chain: rear_mid -> rear_left -> side_left; rear_mid -> rear_right -> side_right -->
+  <!-- rear_mid position preserved relative from previous calibration -->
+  <joint name="joint_base_link-camera_rear_mid" type="fixed">
+    <origin xyz="0.113 -1.325 2.967" rpy="-2.140 -0.011 3.115"/>
+    <parent link="base_link"/>
     <child link="camera_rear_mid"/>
   </joint>
 
