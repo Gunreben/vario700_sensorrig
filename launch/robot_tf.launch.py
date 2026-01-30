@@ -13,7 +13,7 @@ def generate_launch_description():
     pkg_dir = get_package_share_directory('vario700_sensorrig')
     
     # Read URDF file properly with context manager to ensure clean resource handling
-    urdf_path = os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig.urdf')
+    urdf_path = os.path.join(pkg_dir, 'urdf', 'vario700_sensorrig_terasse.urdf')
     with open(urdf_path, 'r') as urdf_file:
         robot_description_content = urdf_file.read()
     

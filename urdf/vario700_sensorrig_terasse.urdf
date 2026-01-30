@@ -27,7 +27,6 @@
     <parent link="os_sensor"/>
     <child link="os_imu"/>
   </joint>
-
   <!-- Camera Links and Joints: Chain from Kalibr calibration -->
   <!-- Chain: os_sensor -> rear_mid -> rear_left -> side_left; rear_mid -> rear_right -> side_right -->
   <!-- rear_mid position preserved relative to os_sensor from previous calibration -->
@@ -38,25 +37,27 @@
   </joint>
 
   <joint name="joint_camera_rear_mid-camera_rear_left" type="fixed">
-    <origin xyz="-0.478852 0.248122 -0.487512" rpy="0.128755 -0.782506 -0.627309"/>
+    <origin xyz="0.722 0.076 -0.040" rpy="0.411 0.696 0.725"/>
     <parent link="camera_rear_mid"/>
     <child link="camera_rear_left"/>
   </joint>
 
   <joint name="joint_camera_rear_left-camera_side_left" type="fixed">
-    <origin xyz="-0.644967 0.058172 -0.072273" rpy="0.404639 -0.374995 -0.380611"/>
+    <origin xyz="0.603779435740509 0.107615370836158 -0.220133541697209" rpy="-0.274021914012596 0.476695080303784 0.235842064594591"/>
     <parent link="camera_rear_left"/>
     <child link="camera_side_left"/>
   </joint>
 
   <joint name="joint_camera_rear_mid-camera_rear_right" type="fixed">
-    <origin xyz="0.523172 0.268661 -0.413858" rpy="0.235680 0.724619 0.669439"/>
+    <origin xyz="-0.706334753202191 0.093880879447860 -0.097177067544477" rpy="0.289483560633349 -0.708003013226559 -0.687384588595347"/>
     <parent link="camera_rear_mid"/>
     <child link="camera_rear_right"/>
   </joint>
 
   <joint name="joint_camera_rear_right-camera_side_right" type="fixed">
-    <origin xyz="0.638988 0.076748 -0.110640" rpy="0.355863 0.458518 0.519943"/>
+      <origin 
+        xyz="-0.580428993498309 0.178316121505517 -0.240298356120014"
+        rpy="-0.113989203132654 -0.562324884121995 -0.403106074270324"/>    
     <parent link="camera_rear_right"/>
     <child link="camera_side_right"/>
   </joint>
