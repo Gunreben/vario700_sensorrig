@@ -5,6 +5,7 @@ with configurable calibration source.
 
 Usage:
   ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py calibration_source:=msa
+  ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py calibration_source:=msa_new
   ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py calibration_source:=kalibr
 """
 
@@ -34,19 +35,18 @@ def launch_setup(context, *args, **kwargs):
     if not os.path.exists(urdf_path):
         raise FileNotFoundError(
             f"URDF file not found: {urdf_path}\n"
-            f"Valid calibration sources: 'msa', 'kalibr'"
+            f"Valid calibration sources: 'msa', 'msa_new', 'kalibr'"
         )
     
     with open(urdf_path, 'r') as urdf_file:
         robot_description_content = urdf_file.read()
     
-    # Select intrinsics path based on calibration source
     calibration_path = os.path.join(tractor_pkg_dir, 'calibration', calibration_source)
     
     if not os.path.isdir(calibration_path):
         raise FileNotFoundError(
             f"Calibration directory not found: {calibration_path}\n"
-            f"Valid calibration sources: 'msa', 'kalibr'"
+            f"Valid calibration sources: 'msa', 'msa_new', 'kalibr'"
         )
     
     # Robot state publisher
@@ -72,12 +72,14 @@ def launch_setup(context, *args, **kwargs):
         }]
     )
     
-    # ZED camera info publisher (calibration source independent)
     zed_camera_info_publisher = Node(
         package='tractor_multi_cam_publisher',
         executable='zed_camera_info_publisher',
         name='zed_camera_info_publisher',
-        output='screen'
+        output='screen',
+        parameters=[{
+            'calibration_path': calibration_path
+        }]
     )
     
     # TF2 static transform publisher for map to odom
@@ -114,8 +116,8 @@ def generate_launch_description():
         # Declare launch arguments
         DeclareLaunchArgument(
             'calibration_source',
-            default_value='kalibr',
-            description="Calibration source to use: 'msa' (old) or 'kalibr' (new)"
+            default_value='msa',
+            description="Calibration source to use: 'msa', 'msa_new', or 'kalibr'"
         ),
         DeclareLaunchArgument(
             'use_sim_time',

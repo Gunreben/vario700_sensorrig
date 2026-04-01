@@ -27,9 +27,29 @@ To install xacro:
 sudo apt install ros-<your-ros2-distro>-xacro
 ```
 
+## Calibration Sources
+
+Camera positions shifted during 2025, so multiple calibration sets exist:
+
+| Source     | Period                     | Notes                                  |
+|------------|----------------------------|----------------------------------------|
+| `msa`      | before 2025-09-27 (default)| Original MSA calibration               |
+| `msa_new`  | after 2025-09-27           | Updated MSA calibration after shift    |
+| `kalibr`   | 2025-10-22                 | Final manual calibration using Kalibr  |
+
+Each source selects a matching URDF (extrinsics / TF tree) and camera intrinsics set.
+When replaying recorded data, pick the source that matches the recording date.
+
 ## Usage
 
-Run the robot state publisher:
+Run the robot state publisher (uncalibrated):
 ```bash
 ros2 launch vario700_sensorrig robot_tf.launch.py
+```
+
+Run with calibrated transforms and camera intrinsics (default: `msa`):
+```bash
+ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py
+ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py calibration_source:=msa_new
+ros2 launch vario700_sensorrig robot_tf_calibrated.launch.py calibration_source:=kalibr
 ```

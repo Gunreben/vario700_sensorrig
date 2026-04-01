@@ -27,39 +27,12 @@
     <parent link="os_sensor"/>
     <child link="os_imu"/>
   </joint>
-  <!-- Camera Links and Joints: Chain from Kalibr calibration -->
-  <!-- Chain: rear_mid -> rear_left -> side_left; rear_mid -> rear_right -> side_right -->
-  <!-- rear_mid position preserved relative from previous calibration -->
-  <joint name="joint_base_link-camera_rear_mid" type="fixed">
-    <origin xyz="0.113 -1.325 2.967" rpy="-2.140 -0.011 3.115"/>
-    <parent link="base_link"/>
-    <child link="camera_rear_mid"/>
-  </joint>
 
-  <joint name="joint_camera_rear_mid-camera_rear_left" type="fixed">
-    <origin xyz="0.722 0.076 -0.040" rpy="0.411 0.696 0.725"/>
-    <parent link="camera_rear_mid"/>
+  <!-- Camera Links and Joints: Derived from MSA-Calibration -->
+  <joint name="joint_os_sensor-camera_rear_left" type="fixed">
+    <origin xyz="0.992307 -0.723447 -1.10403" rpy="0.354237 -2.51376 0.741413"/>
+    <parent link="os_lidar"/>
     <child link="camera_rear_left"/>
-  </joint>
-
-  <joint name="joint_camera_rear_left-camera_side_left" type="fixed">
-    <origin xyz="0.603779435740509 0.107615370836158 -0.220133541697209" rpy="-0.274021914012596 0.476695080303784 0.235842064594591"/>
-    <parent link="camera_rear_left"/>
-    <child link="camera_side_left"/>
-  </joint>
-
-  <joint name="joint_camera_rear_mid-camera_rear_right" type="fixed">
-    <origin xyz="-0.706334753202191 0.093880879447860 -0.097177067544477" rpy="0.289483560633349 -0.708003013226559 -0.687384588595347"/>
-    <parent link="camera_rear_mid"/>
-    <child link="camera_rear_right"/>
-  </joint>
-
-  <joint name="joint_camera_rear_right-camera_side_right" type="fixed">
-      <origin 
-        xyz="-0.580428993498309 0.178316121505517 -0.240298356120014"
-        rpy="-0.113989203132654 -0.562324884121995 -0.403106074270324"/>    
-    <parent link="camera_rear_right"/>
-    <child link="camera_side_right"/>
   </joint>
 
   <!-- Blickfeld attached to rear_mid; Blickfeld is unintuitively recorded in frame "Root" -->
@@ -69,6 +42,29 @@
     <child link="Root"/>
   </joint>
 
+  <joint name="joint_os_sensor-camera_rear_mid" type="fixed">
+    <origin xyz="1.07908 0.0087477 -1.15012" rpy="0.137981 -3.11007 1.5561"/>
+    <parent link="os_lidar"/>
+    <child link="camera_rear_mid"/>
+  </joint>
+
+  <joint name="joint_os_sensor-camera_rear_right" type="fixed">
+    <origin xyz="0.979937 0.739726 -1.09765" rpy="0.467141 2.53466 2.30594"/>
+    <parent link="os_lidar"/>
+    <child link="camera_rear_right"/>
+  </joint>
+
+  <joint name="joint_os_sensor-camera_side_left" type="fixed">
+    <origin xyz="0.524944 -0.891771 -0.651685" rpy="0.673336 -2.32848 0.0911685"/>
+    <parent link="os_lidar"/>
+    <child link="camera_side_left"/>
+  </joint>
+
+  <joint name="joint_os_sensor-camera_side_right" type="fixed">
+    <origin xyz="0.518363 0.859965 -0.646625" rpy="-2.3938 0.819432 0.0221712"/>
+    <parent link="os_lidar"/>
+    <child link="camera_side_right"/>
+  </joint>
 
 
   <!-- ZED Camera Links and Joints -->
@@ -82,28 +78,28 @@
   </joint>
   -->
 
+   <!-- From ZED ROS Wrapper -->
+  <joint name="zed_left_camera_optical_frame_joint" type="fixed">
+    <origin xyz="-0.0768204 -0.0578382 0.135811" rpy="-1.29245 0.0090095 1.55662"/>
+    <parent link="os_lidar"/>
+    <child link="zed_left_camera_optical_frame"/>
+  </joint>
+
   <!-- NEW -->
   <!-- ICP-Registration of ZED-Pointcloud with Ouster-Pointcloud -->
   <!-- Right Camera Frames not included yet -->
   <joint name="zed_left_camera_joint" type="fixed">
-    <parent link="os_sensor"/>
+    <parent link="zed_left_camera_optical_frame"/>
     <child link="zed_left_camera_frame"/>
     <!-- ICP from barn, seemed visually off -->
     <!-- <origin xyz="-0.017881 -0.118638 0.062218" rpy="-0.015401 -0.354727 -3.119028"/>  -->
     <!-- ICP Windrow 4 -->
     <!-- <origin xyz="-0.026789 -0.098001 0.035757" rpy="-0.019154 -0.401029 -3.126174"/>  -->
     <!-- ICP Garage -->
-    <!-- <origin xyz="0.166753 -0.157008 -0.192582" rpy="-0.007683 -0.361936 -3.122481"/> -->
-    <!-- ICP Barnyard, new ICP Tool -->
-    <origin xyz="0.686738 -0.557055 -0.392554 " rpy="0.017882 -0.299944 3.103137"/>
+    <origin xyz="0 0 0" rpy="1.57079632679 0 1.57079632679"/>
   </joint>
 
-   <!-- From ZED ROS Wrapper -->
-  <joint name="zed_left_camera_optical_frame_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
-    <parent link="zed_left_camera_frame"/>
-    <child link="zed_left_camera_optical_frame"/>
-  </joint>
+
 
   <joint name="zed_camera_center_joint" type="fixed">
     <origin xyz="0.010 -0.060 0.000" rpy="0 0 0"/>
@@ -127,6 +123,12 @@
     <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
     <parent link="zed_right_camera_frame"/>
     <child link="zed_right_camera_optical_frame"/>
+  </joint>
+  
+  <joint name="novatel_oem7_joint" type="fixed">
+    <origin xyz="-1.79252 -0.0301837 -2.16294" rpy="0.0624273 0.718659 0.0823612"/>
+    <parent link="os_lidar"/>
+    <child link="novatel_oem7"/>
   </joint>
 
 
@@ -177,6 +179,7 @@
   <link name="os_sensor"><visual><geometry><cylinder radius="0.05" length="0.1"/></geometry></visual></link>
   <link name="os_lidar"/>
   <link name="os_imu"/>
+  <link name="novatel_oem7"/>
 
 
   <!-- Wheel Links and Joints -->
