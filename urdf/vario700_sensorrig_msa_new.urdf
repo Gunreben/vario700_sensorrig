@@ -66,6 +66,37 @@
     <child link="camera_side_right"/>
   </joint>
 
+  <!-- Optical frames for surround camera image projection (+z forward, +x right, +y down) -->
+  <joint name="camera_rear_left_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_rear_left"/>
+    <child link="camera_rear_left_optical_frame"/>
+  </joint>
+
+  <joint name="camera_rear_mid_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_rear_mid"/>
+    <child link="camera_rear_mid_optical_frame"/>
+  </joint>
+
+  <joint name="camera_rear_right_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_rear_right"/>
+    <child link="camera_rear_right_optical_frame"/>
+  </joint>
+
+  <joint name="camera_side_left_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_side_left"/>
+    <child link="camera_side_left_optical_frame"/>
+  </joint>
+
+  <joint name="camera_side_right_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    <parent link="camera_side_right"/>
+    <child link="camera_side_right_optical_frame"/>
+  </joint>
+
 
   <!-- ZED Camera Links and Joints -->
   <!-- DEPRECATED -->
@@ -165,6 +196,11 @@
   <link name="camera_rear_mid"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_left"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
   <link name="camera_side_right"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
+  <link name="camera_rear_left_optical_frame"></link>
+  <link name="camera_rear_mid_optical_frame"></link>
+  <link name="camera_rear_right_optical_frame"></link>
+  <link name="camera_side_left_optical_frame"></link>
+  <link name="camera_side_right_optical_frame"></link>
 
   <link name="Root"><visual><geometry><box size="0.05 0.05 0.05"/></geometry></visual></link>
 
