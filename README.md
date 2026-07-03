@@ -11,11 +11,19 @@ This package includes the 3D files for the Fendt Vario 700 series, extracted fro
 **Currently included in URDF:**
 - **Ouster OS-128** - Front-mounted LiDAR
 - **5x ArkCam Basic+ Mini** - Surround Mono Vision cameras
-- **ZED 2i mini** - Front-mounted stereo camera
+- **ZED 2i mini** - Front-mounted stereo camera (incl. `zed_imu_link` since 0.2.0)
 
 **Planned additions (not yet in URDF):**
-- Blickfeld QB2 LiDAR (rear-mounted)
-- Novatel OEM7 GNSS
+- Blickfeld QB2 LiDAR (rear-mounted) — frame `blickfeld_qb2`, mount pose not yet measured
+- Novatel OEM7 GNSS — frames `gps` (antenna) and `imu_link`, lever arms not yet measured
+
+## Changelog
+
+- **0.2.0** (2026-07-03) — additive only: new link `zed_imu_link`
+  (`zed_left_camera_frame` → `zed_imu_link`, ZED 2i factory camera-IMU
+  calibration from SDK 5.1.2). No existing link, joint, or value changed;
+  anything built against 0.1.x keeps working.
+- **0.1.0** — dataset v1 state: Ouster + 5 ArkCam chain (MSA) + ZED chain (ICP).
 
 ## Prerequisites
 

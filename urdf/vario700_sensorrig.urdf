@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
   Coordinate conventions (REP 103):
   - base_link: X-forward, Y-left, Z-up
   - camera optical frames: Z-forward, X-right, Y-down
   - Ouster os_sensor: X-forward in its own frame
-  
+
   Kalibr outputs transforms between optical frames, so chain optical frames directly.
+
+  VERSION 0.2.0 (2026-07-03). Changelog:
+  - 0.2.0: ADDITIVE ONLY - new link zed_imu_link (ZED 2i factory
+    camera-IMU calibration, see joint comment). No existing link, joint,
+    or value was modified; consumers of 0.1.x are unaffected.
+  - 0.1.x: os_sensor + 5 ArkCam chain (MSA) + ZED chain (ICP), as used
+    for dataset v1.
 -->
 <robot name="vario700_sensorrig">
 
@@ -162,5 +169,17 @@
     <child link="zed_right_camera_optical_frame"/>
   </joint>
   <link name="zed_right_camera_optical_frame"/>
+
+  <!-- ZED 2i IMU (added in 0.2.0). Factory camera-IMU calibration as
+       reported by ZED SDK 5.1.2 for this unit (camera_imu_transform:
+       pose of the IMU in zed_left_camera_frame). The ROS wrapper runs
+       with publish_tf=false, so this joint is the only source of
+       zed_imu_link, the frame_id of /zed/zed_node/imu/data. -->
+  <joint name="zed_left_frame_to_imu" type="fixed">
+    <origin xyz="-0.002 -0.023061 0.000217" rpy="-0.003160 0.003185 -0.000015"/>
+    <parent link="zed_left_camera_frame"/>
+    <child link="zed_imu_link"/>
+  </joint>
+  <link name="zed_imu_link"/>
 
 </robot>

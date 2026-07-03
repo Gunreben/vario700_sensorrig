@@ -1,6 +1,6 @@
 <package format="3">
   <name>vario700_sensorrig</name>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <description>First version of a Fendt Vario700 and a sensor setup containing 6 mono-cameras, a ZED2i and an Ouster OS0 for environmental perception of the tractor.</description>
   <maintainer email="gunreben@wifa.uni-leipzig.de">Lorenz Gunreben</maintainer>
   <license>Apache-2.0</license>
