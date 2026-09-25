@@ -1,0 +1,18 @@
+# painted flat colours (sRGB)
+
+newmtl black_plastic
+Kd 0.0600 0.0600 0.0600
+Ka 0.0600 0.0600 0.0600
+Ks 0.045 0.045 0.045
+Ns 20.0
+d 1.000000
+illum 2
+
+newmtl aluminium
+Kd 0.7200 0.7300 0.7500
+Ka 0.7200 0.7300 0.7500
+Ks 0.211 0.211 0.211
+Ns 86.5
+d 1.000000
+illum 2
+
